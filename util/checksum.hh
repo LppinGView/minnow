@@ -12,7 +12,9 @@ private:
   bool parity_ {};
 
 public:
-  explicit InternetChecksum( const uint32_t sum = 0 ) : sum_( sum ) {}
+  explicit InternetChecksum( const uint32_t sum = 0 )
+    : sum_( sum )
+  {}
   void add( std::string_view data )
   {
     for ( const uint8_t i : data ) {

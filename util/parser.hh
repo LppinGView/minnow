@@ -119,7 +119,9 @@ class Parser
   }
 
 public:
-  explicit Parser( const std::vector<std::string>& input ) : input_( input ) {}
+  explicit Parser( const std::vector<std::string>& input )
+    : input_( input )
+  {}
 
   const BufferList& input() const { return input_; }
 
@@ -176,7 +178,9 @@ class Serializer
 
 public:
   Serializer() = default;
-  explicit Serializer( std::string&& buffer ) : buffer_( std::move( buffer ) ) {}
+  explicit Serializer( std::string&& buffer )
+    : buffer_( std::move( buffer ) )
+  {}
 
   template<std::unsigned_integral T>
   void integer( const T val )

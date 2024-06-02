@@ -1,7 +1,7 @@
 Checkpoint 0 Writeup
 ====================
 
-My name: [your name here]
+My name: [lipingping]
 
 My SUNet ID: [your sunetid here]
 
@@ -9,7 +9,7 @@ I collaborated with: [list sunetids here]
 
 I would like to credit/thank these classmates for their help: [list sunetids here]
 
-This lab took me about [n] hours to do. I [did/did not] attend the lab session.
+This lab took me about [24] hours to do. I [did/did not] attend the lab session.
 
 My secret code from section 2.1 was: [code here]
 
@@ -21,9 +21,24 @@ Describe benefits and weaknesses of your design compared with
 alternatives -- perhaps in terms of simplicity/complexity, risk of
 bugs, asymptotic performance, empirical performance, required
 implementation time and difficulty, and other factors. Include any
-measurements if applicable.]
+measurements if applicable.
+  - data structures: std::string
+  - benefits: simple implementation
+  - weaknesses: uncontroller time and space-complexity
+  - approach:
+    - user string for buffer, then make index calling "wIndex" to flag the site which buffer pushed, wIndex increase when buffer pushed, decrease so on;
+    - the current avriable captionlity is captionlity_ - wIndex, buffer can't push when avirable captionlity less zero;
+    - peek() function can show all data of buffer, but don't popp those data;
+    - all function handle those data with batch operation;
+  
+  - alternatives
+  - data structures: vetor
+]
 
-- Optional: I had unexpected difficulty with: [describe]
+- Optional: I had unexpected difficulty with: [
+  - frist
+
+]
 
 - Optional: I think you could make this lab better by: [describe]
 

@@ -2,7 +2,9 @@
 
 using namespace std;
 
-ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ) {}
+ByteStream::ByteStream( uint64_t capacity )
+  : capacity_( capacity )
+{}
 
 bool Writer::is_closed() const
 {
@@ -11,19 +13,18 @@ bool Writer::is_closed() const
 
 void Writer::push( string data )
 {
-  if (data =="" || available_capacity()<=0)
-  {
+  if ( data == "" || available_capacity() <= 0 ) {
     return;
   }
-  auto dataLen = min(data.length(), available_capacity());
-  buffer+=data.substr(0, dataLen);
-  wIndex+=dataLen;
-  pushedNum+=dataLen;
+  auto dataLen = min( data.length(), available_capacity() );
+  buffer += data.substr( 0, dataLen );
+  wIndex += dataLen;
+  pushedNum += dataLen;
 }
 
 void Writer::close()
 {
-  streamClose=true;
+  streamClose = true;
 }
 
 uint64_t Writer::available_capacity() const
@@ -38,7 +39,7 @@ uint64_t Writer::bytes_pushed() const
 
 bool Reader::is_finished() const
 {
-  return writer().is_closed() && wIndex==0;
+  return writer().is_closed() && wIndex == 0;
 }
 
 uint64_t Reader::bytes_popped() const
@@ -48,20 +49,19 @@ uint64_t Reader::bytes_popped() const
 
 string_view Reader::peek() const
 {
-  if (wIndex > 0 && !buffer.empty()) {
-    return std::string_view(buffer.data(), buffer.size());
+  if ( wIndex > 0 && !buffer.empty() ) {
+    return std::string_view( buffer.data(), buffer.size() );
   }
   return "";
 }
 
 void Reader::pop( uint64_t len )
 {
-  if (len>0 && wIndex>0)
-  {
-    auto eraseLen = min(wIndex, len);
-    buffer=buffer.substr(eraseLen, wIndex-eraseLen);
-    wIndex-=eraseLen;
-    poppedNum+=eraseLen;
+  if ( len > 0 && wIndex > 0 ) {
+    auto eraseLen = min( wIndex, len );
+    buffer = buffer.substr( eraseLen, wIndex - eraseLen );
+    wIndex -= eraseLen;
+    poppedNum += eraseLen;
   }
 }
 

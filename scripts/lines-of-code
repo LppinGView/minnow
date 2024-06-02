@@ -18,12 +18,18 @@ longest_module_length = max([len(x[1]) for x in modules])
 
 
 def count_lines(filename):
-    full_filename = base + '/src/' + filename
-    report = subprocess.run(['sloccount', full_filename], capture_output=True)
-    report.check_returncode()
-    loc = re.search(r'Total Physical Source Lines of Code \(SLOC\) * = (\d+)',
-                    report.stdout.decode('ascii'))
-    return int(loc.group(1))
+    full_filename = os.path.join(base, 'src', filename)
+    print("Checking file: {}".format(filename))
+    try:
+        output = subprocess.check_output(['sloccount', full_filename])
+        loc = re.search(r'Total Physical Source Lines of Code \(SLOC\) * = (\d+)', output.decode('ascii'))
+        return int(loc.group(1))
+    except subprocess.CalledProcessError as e:
+        print("Error running sloccount: {}".format(e))
+        sys.exit(1)
+    except FileNotFoundError:
+        print("Error: sloccount not found. Make sure it is installed and in your PATH.")
+        sys.exit(1)
 
 
 if os.environ.get('MAKE_TERMOUT'):
@@ -38,3 +44,6 @@ for i in modules:
     spacing = longest_module_length - len(i[1])
     tty.write('%s%s:%s%5d lines of code\n'
               % (' ' * 13, i[1], ' ' * spacing, x + y))
+
+if tty != sys.stdout:
+    tty.close()
