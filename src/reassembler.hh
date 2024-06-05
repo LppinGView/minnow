@@ -66,6 +66,7 @@ private:
   void close();
   
   //insert data, build index, those can abstruct to a class called Index
-  void dataInsert( std::string data);
-  void writeData(uint64_t index);
+  void push_or_store(uint64_t first_index, std::string data);
+  uint64_t directPushStream(uint64_t first_index, uint64_t nextIndex, std::string data);
+  bool containsNext(uint64_t first_index, std::string data, uint64_t next) const;
 };
