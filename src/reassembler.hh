@@ -2,7 +2,8 @@
 
 #include "byte_stream.hh"
 #include <set>
-#include <map>
+#include <unordered_map>
+#include <vector>
 #include <iostream>
 
 class Reassembler
@@ -54,19 +55,22 @@ public:
 private:
   ByteStream output_; // the Reassembler writes to this ByteStream
   
-  uint64_t capacity__= 1500;
-  uint64_t pushedSize=0;
-  uint64_t nextIndex=0;
+  uint64_t pendingCount=0;//how many bytes store data set
+  uint64_t nextIndex=0;//next substring push stream;
   bool lastOne=false;
   uint64_t lastOneIndex=0;
-  std::set<uint64_t> index_;
-  std::map<uint64_t, std::string> dataMap_;
+  std::set<uint64_t> index_;//index set
+  std::unordered_map<uint64_t, std::string> dataMap_;//data set
+
+  uint64_t sumLen = 0;
 
   uint64_t available_capacity() const; // How many bytes can be pushed to the reassembler right now?
   void close();
   
   //insert data, build index, those can abstruct to a class called Index
-  void push_or_store(uint64_t first_index, std::string data);
-  uint64_t directPushStream(uint64_t first_index, uint64_t nextIndex, std::string data);
-  bool containsNext(uint64_t first_index, std::string data, uint64_t next) const;
+  void push_rightnow_else_store(uint64_t first_index, std::string data);
+  void sustring_stored_merge();
+  void substring_stored__push_2_stream();
+  uint64_t push_2_stream(uint64_t first_index, uint64_t nextIndex, std::string data);
+  bool contain_next(uint64_t first_index, std::string data, uint64_t next) const;
 };
