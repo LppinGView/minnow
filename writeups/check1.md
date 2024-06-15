@@ -34,7 +34,7 @@ Implementation Challenges:
     Design:
     - First, a string goes into the reassembler, then it should be written into the Bytestream if its first index is less then or equal to "nextIndex"; otherwise, it is stored in dataMap_;
     - Second, strings with same substring will be merged, or they will be combined if they are close to each other; 
-    - Finally, checking merged index_ and writing into stream when its first index less or equal then nexIndex;
+    - Finally, we have a loop where we check the merged indexes and write them into stream when their first index id less then or equal to nexIndex;
     - We can guarantee that index_ strictly matches dataMap_ and the size of dataMap_ is "pendingCount", also strictly increasing nextIndex;
 
     A Bug Handling Processing:
