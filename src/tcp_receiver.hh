@@ -27,4 +27,8 @@ public:
 
 private:
   Reassembler reassembler_;
+  Wrap32 next_no {0};
+  bool RST {};
+  uint64_t checkpoint=0;
+  Wrap32 zero_point {0};
 };
